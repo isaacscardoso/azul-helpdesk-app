@@ -18,9 +18,9 @@ public class JWTUtil {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    public String generateToken(String username) {
+    public String generateToken(String email) {
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(email)
                 .setExpiration(new Date(System.currentTimeMillis() + this.expirationTime))
                 .signWith(SignatureAlgorithm.HS512, this.secretKey.getBytes(StandardCharsets.UTF_8))
                 .compact();
@@ -40,15 +40,15 @@ public class JWTUtil {
     public boolean isValidToken(String token) {
         Claims claims = getClaims(token);
         if (claims != null) {
-            String username = claims.getSubject();
+            String email = claims.getSubject();
             Date expirationDate = claims.getExpiration();
             Date currentTime = new Date(System.currentTimeMillis());
-            return username != null && expirationDate != null && currentTime.before(expirationDate);
+            return email != null && expirationDate != null && currentTime.before(expirationDate);
         }
         return false;
     }
 
-    public String getUsername(String token) {
+    public String getEmail(String token) {
         Claims claims = getClaims(token);
         if (claims != null) {
             return claims.getSubject();
