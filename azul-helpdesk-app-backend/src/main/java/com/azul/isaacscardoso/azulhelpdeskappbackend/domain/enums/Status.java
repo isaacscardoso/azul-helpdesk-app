@@ -26,6 +26,6 @@ public enum Status {
                 }
             }
         }
-        throw new IllegalArgumentException("Esta Prioridade está inválida!");
+        throw new IllegalArgumentException("Este Status está inválido!");
     }
 }
