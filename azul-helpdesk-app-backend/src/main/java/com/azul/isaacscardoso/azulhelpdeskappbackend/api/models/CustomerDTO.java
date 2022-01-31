@@ -1,7 +1,8 @@
 package com.azul.isaacscardoso.azulhelpdeskappbackend.api.models;
 
 import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.enums.Perfil;
-import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.models.Technician;
+import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.models.Customer;
+import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.models.Customer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,14 +35,14 @@ public class CustomerDTO implements Serializable {
         addPerfil(Perfil.CUSTOMER);
     }
 
-    public CustomerDTO(Technician technician) {
-        this.id = technician.getId();
-        this.name = technician.getName();
-        this.cpf = technician.getCpf();
-        this.email = technician.getEmail();
-        this.password = technician.getPassword();
-        this.perfils = technician.getPerfils().stream().map(Perfil::getCode).collect(Collectors.toSet());
-        this.generationDate = technician.getGenerationDate();
+    public CustomerDTO(Customer customer) {
+        this.id = customer.getId();
+        this.name = customer.getName();
+        this.cpf = customer.getCpf();
+        this.email = customer.getEmail();
+        this.password = customer.getPassword();
+        this.perfils = customer.getPerfils().stream().map(Perfil::getCode).collect(Collectors.toSet());
+        this.generationDate = customer.getGenerationDate();
         addPerfil(Perfil.CUSTOMER);
     }
 
