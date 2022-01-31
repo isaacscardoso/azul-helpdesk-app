@@ -1,4 +1,4 @@
-package com.azul.isaacscardoso.azulhelpdeskappbackend.domain.dto;
+package com.azul.isaacscardoso.azulhelpdeskappbackend.api.models;
 
 import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.models.Request;
 import com.fasterxml.jackson.annotation.JsonFormat;

@@ -1,4 +1,4 @@
-package com.azul.isaacscardoso.azulhelpdeskappbackend.domain.dto;
+package com.azul.isaacscardoso.azulhelpdeskappbackend.api.models;
 
 import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.enums.Perfil;
 import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.models.Technician;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class TechnicianDTO implements Serializable {
+public class CustomerDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -30,11 +30,11 @@ public class TechnicianDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime generationDate = LocalDateTime.now();
 
-    public TechnicianDTO() {
-        addPerfil(Perfil.TECHNICIAN);
+    public CustomerDTO() {
+        addPerfil(Perfil.CUSTOMER);
     }
 
-    public TechnicianDTO(Technician technician) {
+    public CustomerDTO(Technician technician) {
         this.id = technician.getId();
         this.name = technician.getName();
         this.cpf = technician.getCpf();
@@ -42,7 +42,7 @@ public class TechnicianDTO implements Serializable {
         this.password = technician.getPassword();
         this.perfils = technician.getPerfils().stream().map(Perfil::getCode).collect(Collectors.toSet());
         this.generationDate = technician.getGenerationDate();
-        addPerfil(Perfil.TECHNICIAN);
+        addPerfil(Perfil.CUSTOMER);
     }
 
     public Set<Perfil> getPerfils() {
