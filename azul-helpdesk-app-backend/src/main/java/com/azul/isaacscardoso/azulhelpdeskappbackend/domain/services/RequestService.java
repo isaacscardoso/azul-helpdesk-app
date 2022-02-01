@@ -1,6 +1,5 @@
 package com.azul.isaacscardoso.azulhelpdeskappbackend.domain.services;
 
-import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.enums.Priority;
 import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.exceptions.ObjectDataNotFoundException;
 import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.models.Customer;
 import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.models.Request;
@@ -8,6 +7,7 @@ import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.models.Technician;
 import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.repositories.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,8 +41,17 @@ public class RequestService {
         return request.orElseThrow(() -> new ObjectDataNotFoundException(OBJ_NOT_FOUND_MESSAGE, EX_TITLE_MESSAGE));
     }
 
+    @Transactional
     public Request insert(Request request) {
         return this.requestRepository.save(instantiateRequest(request));
+    }
+
+    @Transactional
+    public Request update(Long id, Request request) {
+        if (!this.requestRepository.existsById(id))
+            throw new ObjectDataNotFoundException(OBJ_NOT_FOUND_MESSAGE, EX_TITLE_MESSAGE);
+        request.setId(id);
+        return this.requestRepository.save(request);
     }
 
     public Request instantiateRequest(Request request) {
@@ -52,6 +61,7 @@ public class RequestService {
 
         if (request.getId() != null)
             request_.setId(request.getId());
+
         if (request.getStatus().getCode().equals(2))
             request_.setClosingDate(LocalDateTime.now());
 
