@@ -15,6 +15,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@Table
 public class Request implements Serializable {
 
     @Serial
@@ -42,6 +43,19 @@ public class Request implements Serializable {
     @ManyToOne
     @JoinColumn(name = "technician_id")
     private Technician technician;
+
+    public Request() { }
+
+    public Request(Long id, Priority priority, Status status, String title, String observations, Customer customer,
+                   Technician technician) {
+        this.id = id;
+        this.priority = priority;
+        this.status = status;
+        this.title = title;
+        this.observations = observations;
+        this.customer = customer;
+        this.technician = technician;
+    }
 
     @Override
     public boolean equals(Object o) {
