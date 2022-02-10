@@ -15,7 +15,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table
 public class Request implements Serializable {
 
     @Serial

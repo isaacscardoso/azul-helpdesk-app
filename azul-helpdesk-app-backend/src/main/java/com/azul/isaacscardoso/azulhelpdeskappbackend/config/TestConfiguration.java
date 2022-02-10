@@ -4,16 +4,18 @@ import com.azul.isaacscardoso.azulhelpdeskappbackend.domain.services.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
-public class InsertionInitialDataConfiguration {
+@Profile("test")
+public class TestConfiguration {
 
     private DBService dbService;
 
-    public InsertionInitialDataConfiguration() { }
+    public TestConfiguration() { }
 
     @Autowired
-    public InsertionInitialDataConfiguration(DBService dbService) {
+    public TestConfiguration(DBService dbService) {
         this.dbService = dbService;
     }
 

@@ -6,6 +6,7 @@ import com.azul.isaacscardoso.azulhelpdeskappbackend.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,18 +29,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
     private JWTUtil jwtUtil;
     private UserDetailsService userDetailsService;
+    private Environment environment;
 
     public SecurityConfiguration() { }
 
     @Autowired
-    public SecurityConfiguration(JWTUtil jwtUtil, UserDetailsService userDetailsService) {
+    public SecurityConfiguration(JWTUtil jwtUtil, UserDetailsService userDetailsService, Environment environment) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
+        this.environment = environment;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.headers().frameOptions().disable();
+        if (Arrays.asList(environment.getActiveProfiles()).contains("test"))
+            http.headers().frameOptions().disable();
+
         http.cors().and().csrf().disable();
 
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), this.jwtUtil));

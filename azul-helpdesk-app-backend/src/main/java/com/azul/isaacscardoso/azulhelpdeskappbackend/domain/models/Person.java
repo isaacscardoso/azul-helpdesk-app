@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Entity
-@Table
 public abstract class Person implements Serializable {
 
     @Serial
